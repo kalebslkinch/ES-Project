@@ -3,7 +3,8 @@ module.exports = {
     domains: [
       "images.pexels.com",
       "res.cloudinary.com",
-      'i.imgur.com'
+      'i.imgur.com',
+      'storage.googleapis.com'
     ]
   }
 };
