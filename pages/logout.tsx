@@ -1,7 +1,10 @@
 import { useRouter } from 'next/router';
 
-const Logout = ({ user, logout }) => {
+const Logout = () => {
   const router = useRouter();
+  const user = false
+
+
   if (!user) {
     router.replace('/');
     return <></>;
@@ -43,7 +46,8 @@ const Logout = ({ user, logout }) => {
                 Cancel
               </button>
               <button
-                onClick={() => logout()}
+                // Replace with signOut 
+                // onClick={() => logout()}
                 className='mb-2 rounded-lg bg-red-700 px-4 py-2 text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 md:mb-0 md:py-1.5'
               >
                 Logout

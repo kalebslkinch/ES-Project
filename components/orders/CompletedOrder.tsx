@@ -1,6 +1,6 @@
 import cookie from 'js-cookie';
 import { FC } from 'react';
-import { useUser } from '../../lib/firebase/useUser';
+
 import { CustomerInfo } from '../../utils/types/customerinfo';
 
 interface CompletedOrderProps {
@@ -20,7 +20,7 @@ const CompletedOrder: FC<CompletedOrderProps> = ({
   customerInfo,
   paypalInfo,
 }) => {
-  const { user } = useUser();
+  
 
   const { firstName, surName, customerEmail } = customerInfo;
 

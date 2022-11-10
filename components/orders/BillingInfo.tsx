@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import cookie from 'js-cookie';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import CryptoJS from 'crypto-js';
-import { useUser } from '../../lib/firebase/useUser';
+
 import { useMutation } from '@apollo/client';
 import { ADD_ORDER } from '../../graphql/mutations/addCustomersOrders';
 import { date, time } from '../../lib/dateandtime';
@@ -42,8 +42,9 @@ const BillingInfo: FC<BillingInfoProps> = ({
   });
 
   // User
-  const { user } = useUser();
-
+  
+  // Temporary User 
+  const user = {id: 0}
   // Router
   const router = useRouter();
 

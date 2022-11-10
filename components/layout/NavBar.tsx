@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ShoppingCart from '../shoppingcart/ShoppingCart';
-import { useUser } from '../../lib/firebase/useUser';
+
 import UserCircle from '../svg/UserCircle';
 
 import ShoppingBag from '../svg/ShoppingBag';
@@ -18,8 +18,11 @@ const topButtonsStyle = `rounded-md px-6 py-1 text-gray-800 focus:outline-none  
 const topButtonsLinkStyle = 'text-gray-800 text-lg ';
 
 const NavBar = () => {
+
+  // Temporary User 
+  const user = false
+
   // Get the products from the local storage
-  const { user } = useUser();
   // States
 
   const [openShop, setOpenShop] = useState(false);

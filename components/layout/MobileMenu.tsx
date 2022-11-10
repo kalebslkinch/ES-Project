@@ -1,21 +1,20 @@
 import { useState } from 'react';
 import ClickAwayListener from 'react-click-away-listener';
 import Menu from '../svg/Menu';
-import { useUser } from '../../lib/firebase/useUser';
-import Link from 'next/link';
+
 import Boxes from '../svg/Boxes';
 import Sweets from '../svg/Sweets';
 import Bag from '../svg/Bag';
 import Mailing from '../svg/Mailing';
 import NiceLogin from '../svg/NiceLogin';
-import Insta from '../svg/Insta';
 import NiceLogout from '../svg/NiceLogout';
 import NiceUser from '../svg/NiceUser';
 import Orders from '../svg/Orders';
 import { useRouter } from 'next/router';
 
 const MobileMenu = () => {
-  const { user } = useUser();
+  // Temporary User 
+  const user = false
 
   const router = useRouter();
 

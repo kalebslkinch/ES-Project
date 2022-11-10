@@ -1,5 +1,4 @@
 import React from 'react';
-import FirebaseAuth from '../components/auth/FirebaseAuth';
 import { Col } from '../components/EasyComponents/Flex';
 import { FSCol } from '../components/EasyComponents/FScreen';
 
@@ -12,7 +11,6 @@ const Login = () => {
               Login
             </div>
             <Col className="mt-5">
-            <FirebaseAuth />
           </Col>
         </Col>
       </FSCol>
