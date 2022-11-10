@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React, { FC } from 'react'
 import ShoppingSection from './ShoppingSection'
+
 const NavigationButtons: FC<{
 	topButtonsStyle: string
 	topButtonsLinkStyle: string
@@ -20,8 +21,9 @@ const NavigationButtons: FC<{
 }) => {
 	return (
 		<div className="mx-auto flex flex-row justify-center">
-			{/* Home */}
+			{/* Home Button */}
 			<button className={topButtonsStyle} onClick={handleCloseAll}>
+				{/* Home Link */}
 				<Link href="/">
 					<div className={topButtonsLinkStyle}>Home</div>
 				</Link>
@@ -38,8 +40,9 @@ const NavigationButtons: FC<{
 				/>
 			</div>
 
-			{/* Contact Us */}
+			{/* Contact Us Button */}
 			<button className={topButtonsStyle} onClick={handleCloseAll}>
+				{/* Contact Us Link */}
 				<Link href="/contact-us">
 					<div className={topButtonsLinkStyle}>Contact us</div>
 				</Link>
