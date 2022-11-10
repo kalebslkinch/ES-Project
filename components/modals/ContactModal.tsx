@@ -23,7 +23,7 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 		message: ''
 	})
 
-	const [sucessful, setSucessful] = useState<boolean>(false)
+	const [successfu, setSucessful] = useState<boolean>(false)
 
 	// handle submit
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<any> => {
@@ -72,7 +72,7 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 										placeholder="Name"
 										value={formData.name}
 										required
-										disabled={sucessful ? true : false}
+										disabled={successfu ? true : false}
 										minLength={3}
 										onChange={e =>
 											setFormData({
@@ -92,7 +92,7 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 										value={formData.email}
 										required
 										autoComplete="off"
-										disabled={sucessful ? true : false}
+										disabled={successfu ? true : false}
 										onChange={e =>
 											setFormData({
 												...formData,
@@ -113,7 +113,7 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 									<input
 										placeholder="Would be helpful to know"
 										value={formData.budgetAmount}
-										disabled={sucessful ? true : false}
+										disabled={successfu ? true : false}
 										minLength={3}
 										onChange={e =>
 											setFormData({
@@ -133,7 +133,7 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 									<input
 										placeholder="What date is best for you?"
 										value={formData.prefferedDate}
-										disabled={sucessful ? true : false}
+										disabled={successfu ? true : false}
 										minLength={3}
 										onChange={e =>
 											setFormData({
@@ -154,7 +154,7 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 								<textarea
 									placeholder={`Please share what items you will like to order with the quantity amount.\n\nWe will be in touch with you shortly.`}
 									value={formData.message}
-									disabled={sucessful ? true : false}
+									disabled={successfu ? true : false}
 									onChange={e =>
 										setFormData({
 											...formData,
@@ -167,11 +167,11 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 
 							<div className="mt-6 flex justify-center">
 								<button
-									disabled={sucessful ? true : false}
+									disabled={successfu ? true : false}
 									type="submit"
 									className="transform rounded-md bg-gray-700 px-4 py-2 text-white transition-colors duration-200 hover:bg-gray-600 focus:bg-gray-600 focus:outline-none"
 								>
-									{!sucessful ? 'Send Message' : 'Message Sent'}
+									{!successfu ? 'Send Message' : 'Message Sent'}
 								</button>
 							</div>
 						</div>
