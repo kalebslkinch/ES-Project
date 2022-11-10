@@ -2,8 +2,9 @@ import { Col } from '../../EasyComponents/Flex';
 import { FSCol } from '../../EasyComponents/FScreen';
 import InstagramCard from '../InstagramCard';
 import TransitionInstaCard from '../../transitions/TransitionInstaCard';
+import { FC } from 'react';
 
-const WWOContent = ({ data, inView }) => {
+const WWOContent:FC<{data: {allInstagramInput:{data: {image: string; name:string; message: string }[]}}; inView: boolean}> = ({ data, inView }) => {
   return (
     <FSCol>
       <Col className='mx-auto w-3/4 text-center'>

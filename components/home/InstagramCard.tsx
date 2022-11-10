@@ -1,13 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 
-interface ProductCardProps {
-  image: string;
-  name: string;
-  message: string;
-}
-
-const InstagramCard: FC<ProductCardProps> = ({ image, name, message }) => {
+const InstagramCard: FC<{image: string; name: string; message: string}> = ({ image, name, message }) => {
   return (
     <div className='mx-auto mb-6 h-36 w-full rounded-lg border border-gray-200 bg-white p-5 font-light text-gray-800 shadow-md'>
       <div className='mb-4 flex w-full items-center'>
@@ -19,6 +13,7 @@ const InstagramCard: FC<ProductCardProps> = ({ image, name, message }) => {
             objectFit='cover'
           />
         </div>
+        {/* Name */}
         <div className='flex-grow pl-3'>
           <h6 className='overflow-hidden text-sm font-bold  uppercase text-gray-600'>
             {name}
