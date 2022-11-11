@@ -12,7 +12,8 @@ model Products {
   title       String
   description String
   image       String
-  price       Int
+  price       Float
+  quantity    Int
 }
 
 model Testimonials {

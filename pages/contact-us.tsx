@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form'
 import ErrorPop from '../components/ErrorPop'
 import { useState } from 'react'
 import SucessPop from '../components/SuccessPop'
-import { useMutation } from '@apollo/client'
-import { ADD_CONTACT_US } from '../graphql/mutations/addContactUsMessages'
 import At from '../components/svg/At'
 import Mobile from '../components/svg/Mobile'
 import cookie from 'js-cookie'
@@ -12,9 +10,9 @@ import Insta from '../components/svg/Insta'
 import TransitionContactUS from '../components/transitions/TransitionContactUS'
 import { Col } from '../components/EasyComponents/Flex'
 import { NextPage } from 'next'
+import axios from 'axios'
 
 const ContactUs: NextPage = () => {
-	const [addMessages, { data }] = useMutation(ADD_CONTACT_US)
 	cookie.set('messageSent', 'new')
 
 	const [successful, setSucessful] = useState<boolean>(false)
@@ -37,7 +35,7 @@ const ContactUs: NextPage = () => {
 	const handleAlert = async (): Promise<any> => {
 		if (cookie.get('messageSent') === 'new') {
 			cookie.set('messageSent', '0')
-			addMessages({ variables: { data: contactMessage } })
+			await axios.post('/api/post/contact-message', contactMessage)
 		} else {
 			return
 		}
