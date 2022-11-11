@@ -1,13 +1,9 @@
-import { useMutation } from '@apollo/client'
+import axios from 'axios'
 import { FC, MouseEventHandler, useState } from 'react'
-import { ADD_CONTACT_ORDER } from '../../graphql/mutations/addContactOrder'
 import { Col, Row } from '../EasyComponents/Flex'
 import Cross from '../svg/Cross'
 
 const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
-	// Mutation
-	const [addContactOrder, { data }] = useMutation(ADD_CONTACT_ORDER)
-
 	// States
 	const [formData, setFormData] = useState<{
 		name: string
@@ -34,7 +30,10 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 		const date: string = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`
 
 		// Mutate Data
-		addContactOrder({ variables: { data: { ...formData, date } } })
+		await axios.post('/api/post/contact-order', {
+			...formData,
+			date
+		})
 
 		// Set Sucessful
 		setSucessful(true)

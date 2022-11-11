@@ -1,21 +1,13 @@
-import NavBar from '../components/layout/NavBar';
-import '../styles/globals.css';
-import { ApolloProvider } from '@apollo/client';
-import client from '../lib/apolloClient';
+import NavBar from '../components/layout/NavBar'
+import '../styles/globals.css'
 
-const MyApp = ({ Component, pageProps }) => {
+const MyApp = ({ Component, pageProps }: { Component: any; pageProps: any }) => {
+	return (
+		<>
+			<NavBar />
+			<Component {...pageProps} />
+		</>
+	)
+}
 
-  return (
-    <>
-      <ApolloProvider client={client}>
-        <NavBar />
-        <Component {...pageProps}  
-        // Replace with nextAuth signout 
-        // logout={logout}
-         />
-      </ApolloProvider>
-    </>
-  );
-};
-
-export default MyApp;
+export default MyApp
