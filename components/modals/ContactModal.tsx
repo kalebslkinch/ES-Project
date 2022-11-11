@@ -23,15 +23,15 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 		message: ''
 	})
 
-	const [successfu, setSucessful] = useState<boolean>(false)
+	const [successful, setSucessful] = useState<boolean>(false)
 
-	// handle submit
+	// Handle submit
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<any> => {
 		e.preventDefault()
 
-		// current date
-		const currentDate = new Date()
-		const date = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`
+		// Current date
+		const currentDate: Date = new Date()
+		const date: string = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`
 
 		// Mutate Data
 		addContactOrder({ variables: { data: { ...formData, date } } })
@@ -62,17 +62,20 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 					{/* Subtitle */}
 					<p className="mt-4 text-lg">How can we be of assistance?</p>
 
+					{/* Form */}
 					<form autoComplete="off" onSubmit={handleSubmit}>
 						<div className="mt-6 ">
 							<div className="-mx-2 items-center md:flex">
 								<div className="mx-2 w-full">
+									{/* Name Label */}
 									<label className="-mtext-gray-200 mb-2 block text-sm font-medium  text-gray-800">Name*</label>
 
+									{/* Name Input */}
 									<input
 										placeholder="Name"
 										value={formData.name}
 										required
-										disabled={successfu ? true : false}
+										disabled={successful ? true : false}
 										minLength={3}
 										onChange={e =>
 											setFormData({
@@ -85,14 +88,16 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 								</div>
 
 								<div className="mx-2 mt-4 w-full md:mt-0">
-									<div className="-mtext-gray-200 mb-2 block text-sm font-medium  text-gray-800">E-mail*</div>
+									{/* Email Label */}
+									<label className="-mtext-gray-200 mb-2 block text-sm font-medium  text-gray-800">E-mail*</label>
 
+									{/* Email P */}
 									<input
 										placeholder="Email"
 										value={formData.email}
 										required
 										autoComplete="off"
-										disabled={successfu ? true : false}
+										disabled={successful ? true : false}
 										onChange={e =>
 											setFormData({
 												...formData,
@@ -106,14 +111,16 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 
 							<Row className="space-x-4">
 								<Col>
+									{/* Budget Amount Label */}
 									<label className="-mtext-gray-200 mt-4 mb-2 block text-sm font-medium  text-gray-800">
 										Budget Amount
 									</label>
 
+									{/* Budget Amount Input */}
 									<input
 										placeholder="Would be helpful to know"
 										value={formData.budgetAmount}
-										disabled={successfu ? true : false}
+										disabled={successful ? true : false}
 										minLength={3}
 										onChange={e =>
 											setFormData({
@@ -126,14 +133,16 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 								</Col>
 
 								<Col>
+									{/* Preffered Date Label */}
 									<label className="-mtext-gray-200 mt-4 mb-2 block text-sm font-medium  text-gray-800">
 										Preffered Date
 									</label>
 
+									{/* Preffered Date Input */}
 									<input
 										placeholder="What date is best for you?"
 										value={formData.prefferedDate}
-										disabled={successfu ? true : false}
+										disabled={successful ? true : false}
 										minLength={3}
 										onChange={e =>
 											setFormData({
@@ -147,14 +156,16 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 							</Row>
 
 							<div className="ml-1 mt-4 w-full  sm:ml-0">
+								{/* Message Input */}
 								<label className="-mtext-gray-200 mb-2 ml-1 block text-sm font-medium text-gray-800  sm:ml-0">
 									Message*
 								</label>
 
+								{/* Message Text Area */}
 								<textarea
 									placeholder={`Please share what items you will like to order with the quantity amount.\n\nWe will be in touch with you shortly.`}
 									value={formData.message}
-									disabled={successfu ? true : false}
+									disabled={successful ? true : false}
 									onChange={e =>
 										setFormData({
 											...formData,
@@ -166,12 +177,13 @@ const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
 							</div>
 
 							<div className="mt-6 flex justify-center">
+								{/* Send Message Button */}
 								<button
-									disabled={successfu ? true : false}
+									disabled={successful ? true : false}
 									type="submit"
 									className="transform rounded-md bg-gray-700 px-4 py-2 text-white transition-colors duration-200 hover:bg-gray-600 focus:bg-gray-600 focus:outline-none"
 								>
-									{!successfu ? 'Send Message' : 'Message Sent'}
+									{!successful ? 'Send Message' : 'Message Sent'}
 								</button>
 							</div>
 						</div>

@@ -16,7 +16,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 const SnackBox: NextPage = () => {
 	const router = useRouter()
 
-	const [openModal, setOpenModal] = useState(false)
+	const [openModal, setOpenModal] = useState<boolean>(false)
 
 	// Lists
 	const familyList: string[] = ['3 Snack Boxes', 'Free Shipping']
