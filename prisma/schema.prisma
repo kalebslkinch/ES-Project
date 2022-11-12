@@ -14,32 +14,33 @@ model Products {
   image       String
   price       Float
   quantity    Int
+  createdAt   String
 }
 
 model Testimonials {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  image   String
-  message String
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  image     String
+  message   String
+  createdAt String
 }
 
 model Orders {
-  id               String  @id @default(auto()) @map("_id") @db.ObjectId
-  customerID       String
-  quantity         Int
-  customerInfo     String
-  productOrderInfo String
-  cost             Int
-  date             String
-  completed        Boolean
-  time             String
+  id                  String @id @default(auto()) @map("_id") @db.ObjectId
+  customerID          String
+  products            String
+  deliveryInformation String
+  totalAmount         Float
+  totalQuantity       Int
+  createdAt           String
 }
 
 model Contact {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  email   String
-  message String
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  message   String
+  createdAt String
 }
 
 model ContactOrder {
@@ -49,5 +50,5 @@ model ContactOrder {
   budgetAmount  String
   prefferedDate String
   message       String
-  date          String
+  createdAt     String
 }

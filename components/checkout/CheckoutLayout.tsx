@@ -7,8 +7,6 @@ import TransitionCheckout from '../transitions/TransitionCheckout'
 import TransitionBag from '../transitions/TransitionBag'
 
 const CheckoutLayout: FC = () => {
-	const [succeeded, setSucceeded] = useState<boolean>(false)
-
 	const cart: string = 'cart'
 	if (cookie.get(cart) === undefined) {
 		return (
@@ -27,13 +25,10 @@ const CheckoutLayout: FC = () => {
 		image: string
 		price: number
 		quantity: number
-	}[] = JSON.parse(cookie.get(cart))
+	}[] = JSON.parse(cookie.get(cart) as string)
 	if (getStorage.length > 0) {
 		const totalAmount = getStorage.map(data => data.quantity * data.price).reduce((a, b) => a + b)
 
-		if (succeeded) {
-			return <></>
-		}
 		return (
 			<>
 				<div className="w-full max-w-full animate-fadein overflow-scroll py-8 md:overflow-auto">

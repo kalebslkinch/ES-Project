@@ -52,7 +52,7 @@ const ShoppingCart: FC<{ toggleShoppingBag: () => void }> = ({ toggleShoppingBag
 													className="flex justify-center rounded border border-gray-800 px-4 py-2 text-base font-bold text-gray-800 duration-200 hover:scale-110 hover:border-pink-400 hover:bg-opacity-100 hover:text-white focus:outline-none"
 												>
 													{/* Checkout Link */}
-													<Link href="/checkout1">
+													<Link href="/shopping-bag">
 														<a className="animate-fadein">
 															Checkout
 															{/* Checkout Amount */}
