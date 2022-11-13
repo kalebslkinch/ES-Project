@@ -30,7 +30,6 @@ const BillingInformation: FC<{
 }> = ({ deliveryInformation, setDeliveryInformation, totalAmount }) => {
 	return (
 		<>
-			{' '}
 			<h2 className="flex text-center text-2xl text-gray-900">Billing Information</h2>
 			<div className="mt-4 flex w-full flex-row justify-center space-x-2 sm:space-x-6 md:max-w-lg md:space-x-10 ">
 				<div className="w-full justify-center pb-2">
@@ -94,6 +93,7 @@ const BillingInformation: FC<{
 			{/* Address Text Area */}
 			<div className="flex w-full justify-center">
 				<textarea
+					required
 					onChange={e => setDeliveryInformation({ ...deliveryInformation, address: e.target.value })}
 					className="block h-24 w-full rounded-md border border-gray-700 bg-white px-4 py-2 text-black focus:outline-none focus:ring sm:w-full"
 				/>

@@ -32,6 +32,7 @@ model Orders {
   deliveryInformation String
   totalAmount         Float
   totalQuantity       Int
+  paymentMethod       String
   createdAt           String
 }
 
