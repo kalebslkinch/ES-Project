@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import cookie from 'js-cookie'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { PAYPAL_CLIENT_ID } from '../utils/paypal-client'
 import PaypalButton from '../components/orders/PaypalButton'
 
