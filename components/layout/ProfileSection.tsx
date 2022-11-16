@@ -1,3 +1,4 @@
+import ProfileSectionButton from './ProfileSectionButton'
 import Link from 'next/link'
 import ClickAwayListener from 'react-click-away-listener'
 import User from '../svg/User'
@@ -5,12 +6,14 @@ import Heart from '../svg/Heart'
 import Logout from '../svg/Logout'
 import Login from '../svg/Login'
 import { FC, ReactChild } from 'react'
+import { useSession } from 'next-auth/react'
 
 const ProfileSection: FC<{
 	handleProfileClickAway: () => void
-	user: boolean
 	icons: ReactChild
-}> = ({ handleProfileClickAway, user, icons }) => {
+}> = ({ handleProfileClickAway, icons }) => {
+	const isAuthenticated = useSession().status === 'authenticated'
+
 	return (
 		<ClickAwayListener onClickAway={handleProfileClickAway}>
 			<div
@@ -19,60 +22,28 @@ const ProfileSection: FC<{
 				aria-orientation="vertical"
 				aria-labelledby="user-menu"
 			>
-				{user && (
+				{isAuthenticated && (
 					<>
-						<div className="group pl-4 flex">
-							{/* Profile Icon */}
+						{/* My Profile Button */}
+						<ProfileSectionButton title="My profile" link="/my-profile">
 							<User className="h-6 w-6 group-hover:animate-slowbounce" />
+						</ProfileSectionButton>
 
-							{/* Profile Link */}
-							<Link href="/my-profile">
-								<span className=" block cursor-pointer px-2 py-2 text-sm text-gray-800 " role="menuitem">
-									Your Profile
-								</span>
-							</Link>
-						</div>
-
-						<div className="group pl-4 flex">
-							{/* Order Icon */}
+						{/* Orders Button */}
+						<ProfileSectionButton title="Orders" link="/orders">
 							<Heart className="h-6 w-6 group-hover:animate-slowbounce" />
-
-							{/* Orders Links */}
-							<Link href="/orders">
-								<div className="block cursor-pointer px-2 py-2 text-sm text-gray-800 " role="menuitem">
-									Orders
-								</div>
-							</Link>
-						</div>
+						</ProfileSectionButton>
 					</>
 				)}
-				{!user ? (
-					<>
-						<div className="group pl-4 flex">
-							{/* Login Icon */}
-							<Login className={icons} />
-
-							{/* Login Link */}
-							<Link href="/login">
-								<div className="block cursor-pointer px-4   py-2 text-sm text-gray-700 " role="menuitem">
-									Login
-								</div>
-							</Link>
-						</div>
-					</>
-				) : (
-					<div className="group pl-4 flex">
-						{/* Logout Icon */}
-						<Logout className={icons} />
-
-						{/* Logout Link */}
-						<Link href="/logout">
-							<div className="block cursor-pointer px-2 py-2 text-sm text-gray-700 " role="menuitem">
-								Logout
-							</div>
-						</Link>
-					</div>
-				)}
+				<>
+					{/* Orders Button */}
+					<ProfileSectionButton
+						title={isAuthenticated ? 'Logout' : 'Login'}
+						link={isAuthenticated ? '/logout' : '/login'}
+					>
+						<> {isAuthenticated ? <Logout className={icons} /> : <Login className={icons} />}</>
+					</ProfileSectionButton>
+				</>
 			</div>
 		</ClickAwayListener>
 	)

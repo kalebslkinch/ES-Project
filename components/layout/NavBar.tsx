@@ -10,7 +10,7 @@ import { FSRow } from '../EasyComponents/FScreen'
 // Styles
 const icons: string = 'group-hover:animate-bounce w-6 w-6'
 const transition: string = 'transition  duration-1000 delay-100 ease-in-out  transform  hover:scale-110'
-const topButtonsStyle: string = `rounded-md px-6 py-1 text-gray-800 focus:outline-none   ${transition}  bg-gradient-to-r  hover:from-pink-400 hover:via-green-300 hover:to-blue-400`
+const topButtonsStyle: string = `rounded-md px-6 py-1 text-gray-800 focus:outline-none  ${transition}  bg-gradient-to-r  hover:from-pink-400 hover:via-green-300 hover:to-blue-400`
 const topButtonsLinkStyle: string = 'text-gray-800 text-lg '
 
 const NavBar: FC = () => {
@@ -92,7 +92,6 @@ const NavBar: FC = () => {
 								toggleShoppingBag={toggleShoppingBag}
 								openProfileMenu={openProfileMenu}
 								handleProfileClickAway={handleProfileClickAway}
-								user={user}
 								icons={icons}
 							/>
 						</div>

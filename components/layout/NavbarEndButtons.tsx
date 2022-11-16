@@ -7,9 +7,8 @@ const NavbarEndButtons: FC<{
 	toggleShoppingBag: () => void
 	openProfileMenu: boolean
 	handleProfileClickAway: () => void
-	user: boolean
 	icons: string
-}> = ({ toggleProfileMenu, toggleShoppingBag, openProfileMenu, handleProfileClickAway, user, icons }) => {
+}> = ({ toggleProfileMenu, toggleShoppingBag, openProfileMenu, handleProfileClickAway, icons }) => {
 	return (
 		<div className="hidden md:block">
 			{/* Profile */}
@@ -30,11 +29,7 @@ const NavbarEndButtons: FC<{
 					</button>
 				</div>
 
-				{openProfileMenu === true ? (
-					<ProfileSection handleProfileClickAway={handleProfileClickAway} user={user} icons={icons} />
-				) : (
-					<></>
-				)}
+				{openProfileMenu === true && <ProfileSection handleProfileClickAway={handleProfileClickAway} icons={icons} />}
 			</div>
 		</div>
 	)

@@ -10,16 +10,17 @@ import NiceLogout from '../svg/NiceLogout'
 import NiceUser from '../svg/NiceUser'
 import Orders from '../svg/Orders'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
 const MobileMenu: FC = () => {
 	// Temporary User
-	const user: boolean = false
+	const isAuthenticated = useSession().status === 'authenticated'
 
 	const router = useRouter()
 
 	const [open, setOpen] = useState<boolean>(false)
 
-	const handleClick = (location): void => {
+	const handleClick = (location: string): void => {
 		router.push(`/${location}`)
 		setOpen(!open)
 	}
@@ -101,23 +102,7 @@ const MobileMenu: FC = () => {
 								</button>
 							</div>
 
-							{!user ? (
-								<>
-									<div className="group flex">
-										{/* Login Icon */}
-										<button onClick={() => handleClick('login')}>
-											<NiceLogin className="h-8 w-8 group-hover:animate-bounce" />
-										</button>
-
-										{/* Login Button */}
-										<button onClick={() => handleClick('login')}>
-											<div className="-mtext-gray-300 -m block transform px-4 py-2 text-sm capitalize text-gray-700  transition-colors    duration-200">
-												Login
-											</div>
-										</button>
-									</div>
-								</>
-							) : (
+							{isAuthenticated ? (
 								<>
 									<div className="group flex">
 										{/* Profile Icon */}
@@ -155,6 +140,22 @@ const MobileMenu: FC = () => {
 											>
 												Logout
 											</button>
+										</button>
+									</div>
+								</>
+							) : (
+								<>
+									<div className="group flex">
+										{/* Login Icon */}
+										<button onClick={() => handleClick('login')}>
+											<NiceLogin className="h-8 w-8 group-hover:animate-bounce" />
+										</button>
+
+										{/* Login Button */}
+										<button onClick={() => handleClick('login')}>
+											<div className="-mtext-gray-300 -m block transform px-4 py-2 text-sm capitalize text-gray-700  transition-colors    duration-200">
+												Login
+											</div>
 										</button>
 									</div>
 								</>
