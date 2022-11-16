@@ -48,7 +48,28 @@ describe('Order Post API', () => {
 	let actualAmounts: number[] = []
 
 	const IDs = products.map((product: { id: string }) => product.id)
+	it('IDs', () => {
+		expect(IDs).toEqual(['2', '3'])
+	})
+
 	const filteredProducts = productData.filter((product: { id: string }) => IDs.includes(product.id))
+
+	it('filteredProducts', () => {
+		expect(filteredProducts).toEqual([
+			{
+				id: '2',
+				name: 'Product 2',
+				price: 20,
+				quantity: 10
+			},
+			{
+				id: '3',
+				name: 'Product 3',
+				price: 30,
+				quantity: 10
+			}
+		])
+	})
 
 	for (let i = 0; i < filteredProducts.length; i++) {
 		filteredWithCorrectQuantity.push({
@@ -61,14 +82,18 @@ describe('Order Post API', () => {
 		actualAmounts.push(each.price * each.quantity)
 	})
 
-	it('total amount of order', () => {
-		const totalAmount = actualAmounts.reduce((a: number, b: number) => a + b, 0)
+	it('actualAmounts', () => {
+		expect(actualAmounts).toEqual([200, 300])
+	})
 
+	const totalAmount = actualAmounts.reduce((a: number, b: number) => a + b, 0)
+	const totalQuantity = products.map(product => product.quantity).reduce((a, b) => a + b, 0)
+
+	it('total amount of order', () => {
 		expect(totalAmount).toBe(500)
 	})
 
 	it('total quantity of order', () => {
-		const totalQuantity = products.map(product => product.quantity).reduce((a, b) => a + b, 0)
 		expect(totalQuantity).toBe(20)
 	})
 })
