@@ -8,6 +8,7 @@ import axios from 'axios'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { PAYPAL_CLIENT_ID } from '../utils/paypal-client'
 import PaypalButton from '../components/orders/PaypalButton'
+import CryptoJS from 'crypto-js'
 
 const Billing = () => {
 	const router = useRouter()
@@ -57,11 +58,13 @@ const Billing = () => {
 		isShipped: false,
 		isCompleted: false
 	})
+	// Total Order Amount
+	const totalAmount = products.map(product => Number(product.price) * product.quantity).reduce((a, b) => a + b, 0)
 
 	const [paymentMethod, setPaymentMethod] = useState<'paypal' | 'stripe'>('paypal')
 
 	// Handle Checkout
-	const handleCheckout = async (): Promise<any> => {
+	const handleCheckout = async (paymentMethod: 'paypal' | 'stripe'): Promise<any> => {
 		const postableDeliveryInformation = {
 			firstname: deliveryInformation.firstname,
 			surname: deliveryInformation.surname,
@@ -85,46 +88,59 @@ const Billing = () => {
 			customerID: '',
 			products: JSON.stringify(products),
 			deliveryInformation: JSON.stringify(postableDeliveryInformation),
-			totalAmount: 0,
+			totalAmount: totalAmount,
 			totalQuantity: 0,
 			paymentMethod: paymentMethod
 		}
 
-		await axios.post('/api/post/order', postData)
+		if (paymentMethod === 'stripe') {
+			// Data Encryption
+			let encryptedData = CryptoJS.AES.encrypt(
+				JSON.stringify(postData),
+				`${process.env.SECRET_ENCRYPTION_KEY}`
+			).toString()
+
+			cookie.set('orderData', encryptedData, { expires: 1 })
+
+			router.push('/checkout')
+		}
+		if (paymentMethod === 'paypal') {
+			await axios.post('/api/post/order', postData)
+		}
 	}
 
-	// Handle Payment
-	const handleCardPayment = async (e: any): Promise<any> => {
-		e.preventDefault()
-		setPaymentMethod('stripe')
+	const handlePayByCard = async (): Promise<any> => {
+		handleCheckout('stripe')
 	}
-	// Total Order Amount
-	const totalAmount = products.map(product => Number(product.price) * product.quantity).reduce((a, b) => a + b, 0)
 
 	return (
 		<PayPalScriptProvider options={{ 'client-id': PAYPAL_CLIENT_ID.clientId }}>
 			<FSCol className="h-[90vh]">
 				<div className="my-auto flex w-screen justify-center">
-					<form onSubmit={handleCardPayment} className="mx-2 w-full sm:mx-4 sm:max-w-md md:py-4 lg:max-w-lg">
+					<div className="mx-2 w-full sm:mx-4 sm:max-w-md md:py-4 lg:max-w-lg">
 						<BillingInformation
 							setDeliveryInformation={setDeliveryInformation}
 							deliveryInformation={deliveryInformation}
 							totalAmount={totalAmount}
 						/>
 						<div className="mx-auto mt-2 flex w-full flex-col justify-center">
+							{/* Paypal Button */}
 							<PaypalButton
 								totalAmount={totalAmount}
-								handleCheckout={handleCheckout}
+								handleCheckout={() => handleCheckout('paypal')}
 								handlePaymentMethod={() => setPaymentMethod('paypal')}
 							/>
+
+							{/* Stripe Button */}
 							<button
 								type="submit"
+								onClick={handlePayByCard}
 								className="rounded-full border bg-gray-800 py-2 text-xl text-white focus:outline-none "
 							>
 								Pay By Card
 							</button>
 						</div>
-					</form>
+					</div>
 				</div>
 			</FSCol>
 		</PayPalScriptProvider>
