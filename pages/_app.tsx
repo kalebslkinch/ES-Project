@@ -1,13 +1,15 @@
 import NavBar from '../components/layout/NavBar'
+import { SessionProvider } from 'next-auth/react'
 import '../styles/globals.css'
+import { AppType } from 'next/app'
 
-const MyApp = ({ Component, pageProps }: { Component: any; pageProps: any }) => {
+const App: AppType = ({ Component, pageProps: { session, ...pageProps } }) => {
 	return (
-		<>
+		<SessionProvider session={session}>
 			<NavBar />
 			<Component {...pageProps} />
-		</>
+		</SessionProvider>
 	)
 }
 
-export default MyApp
+export default App

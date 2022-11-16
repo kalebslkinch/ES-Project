@@ -48,13 +48,13 @@ describe('Order Post API', () => {
 	let actualAmounts: number[] = []
 
 	const IDs = products.map((product: { id: string }) => product.id)
-	it('IDs', () => {
+	it('Gets list of IDs', () => {
 		expect(IDs).toEqual(['2', '3'])
 	})
 
 	const filteredProducts = productData.filter((product: { id: string }) => IDs.includes(product.id))
 
-	it('filteredProducts', () => {
+	it('Fitlters products by IDs', () => {
 		expect(filteredProducts).toEqual([
 			{
 				id: '2',
@@ -82,7 +82,7 @@ describe('Order Post API', () => {
 		actualAmounts.push(each.price * each.quantity)
 	})
 
-	it('actualAmounts', () => {
+	it('Creates list of ', () => {
 		expect(actualAmounts).toEqual([200, 300])
 	})
 
