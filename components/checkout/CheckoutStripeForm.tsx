@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
-const CheckoutForm = () => {
+const CheckoutForm: FC = () => {
 	const stripe = useStripe()
 	const elements = useElements()
 
@@ -52,7 +52,7 @@ const CheckoutForm = () => {
 			elements,
 			confirmParams: {
 				// Make sure to change this to your payment completion page
-				return_url: 'window.location.origin'
+				return_url: `${window.location.origin}/order-done`
 			}
 		})
 
@@ -70,9 +70,13 @@ const CheckoutForm = () => {
 		setIsLoading(false)
 	}
 	return (
-		<form className="bg-gray h-81 w-81 flex flex-col" id="payment-form" onSubmit={handleSubmit}>
+		<form className="h-[300px] w-[80%] max-w-[500px] flex flex-col" id="payment-form" onSubmit={handleSubmit}>
 			<PaymentElement id="payment-element" />
-			<button disabled={isLoading || !stripe || !elements} id="submit">
+			<button
+				className="bg-gray-700 hover:bg-gray-900 text-white border border-black rounded-full mx-auto px-4 py-2 mt-4"
+				disabled={isLoading || !stripe || !elements}
+				id="submit"
+			>
 				<span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}</span>
 			</button>
 			{/* Show any error or success messages */}

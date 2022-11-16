@@ -47,7 +47,7 @@ const Checkout = () => {
 	}
 
 	return (
-		<div className="App">
+		<div className="w-screen h-[92vh] flex items-center justify-center">
 			{clientSecret && (
 				<Elements options={options as StripeElementsOptions} stripe={stripePromise}>
 					<CheckoutForm />

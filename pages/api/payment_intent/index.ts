@@ -1,6 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { AnyNode } from 'postcss'
-import { execArgv } from 'process'
 import prisma from '../../../lib/prisma'
 
 // This is your test secret API key.
@@ -36,10 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	// Create a PaymentIntent with the order amount and currency
 	const paymentIntent = await stripe.paymentIntents.create({
 		amount: totalAmount * 100,
-		currency: 'gbp',
-		automatic_payment_methods: {
-			enabled: true
-		}
+		currency: 'gbp'
 	})
 
 	res.send({
