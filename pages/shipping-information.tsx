@@ -9,8 +9,9 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { PAYPAL_CLIENT_ID } from '../utils/paypal-client'
 import PaypalButton from '../components/orders/PaypalButton'
 import CryptoJS from 'crypto-js'
+import { NextPage } from 'next'
 
-const Billing = () => {
+const Billing: NextPage = () => {
 	const router = useRouter()
 	const user = { authentication: 'authenticated' }
 	const isUser = user.authentication === 'authenticated'
@@ -61,6 +62,9 @@ const Billing = () => {
 	// Total Order Amount
 	const totalAmount = products.map(product => Number(product.price) * product.quantity).reduce((a, b) => a + b, 0)
 
+	// Total Order Quantity
+	const totalQuantity = products.map(product => product.quantity).reduce((a, b) => a + b, 0)
+
 	const [paymentMethod, setPaymentMethod] = useState<'paypal' | 'stripe'>('paypal')
 
 	// Handle Checkout
@@ -89,7 +93,7 @@ const Billing = () => {
 			products: JSON.stringify(products),
 			deliveryInformation: JSON.stringify(postableDeliveryInformation),
 			totalAmount: totalAmount,
-			totalQuantity: 0,
+			totalQuantity: totalQuantity,
 			paymentMethod: paymentMethod
 		}
 

@@ -18,6 +18,7 @@ const CheckoutLayout: FC = () => {
 			</div>
 		)
 	}
+
 	const getStorage: {
 		id: string
 		title: string
@@ -116,7 +117,7 @@ const CheckoutLayout: FC = () => {
 													<div className="pb-4 flex items-center">
 														{/* Proceed to Checkout Link */}
 														<button className="undefined flex cursor-pointer justify-center rounded border border-gray-800 bg-opacity-0 px-4 py-2 text-base font-bold text-gray-800 delay-100 duration-300 hover:scale-110 hover:text-blue-900 focus:outline-none">
-															<Link href="/checkout2">
+															<Link href="/shipping-information">
 																<a className="animate-fadein">
 																	Proceed to Checkout{' '}
 																	{totalAmount >= 1 ? (
