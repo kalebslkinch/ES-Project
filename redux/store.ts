@@ -12,7 +12,9 @@ const makeStore = () =>
 	})
 
 const store = configureStore({
-	reducer: {}
+	reducer: {
+		[productSlice.name]: productSlice.reducer
+	}
 })
 
 export default store
