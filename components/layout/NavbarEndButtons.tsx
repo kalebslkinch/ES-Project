@@ -1,3 +1,4 @@
+import ProfileMenuButton from './ProfileMenuButton'
 import React, { FC } from 'react'
 import ShoppingBag from '../svg/ShoppingBag'
 import UserCircle from '../svg/UserCircle'
@@ -13,21 +14,14 @@ const NavbarEndButtons: FC<{
 		<div className="hidden md:block">
 			{/* Profile */}
 			<div className="ml-4 flex items-center space-x-2 md:ml-6">
-				<div className="group">
-					{/* Profile Menu Button */}
-					<button onClick={toggleProfileMenu} className="rounded-full p-1 focus:outline-none">
-						{/* Profile Menu Button */}
-						<UserCircle className="h-8 w-8 group-hover:animate-slowbounce" />
-					</button>
-				</div>
+				{/* User Profile Menu Button */}
+				<ProfileMenuButton toggleMenu={toggleProfileMenu}>
+					<UserCircle className="h-8 w-8 group-hover:animate-slowbounce" />
+				</ProfileMenuButton>
 
-				<div className="group">
-					{/* Shopping Bag Menu Button */}
-					<button onClick={toggleShoppingBag} className="rounded-full  p-1  focus:outline-none">
-						{/* Shopping Bag Icon */}
-						<ShoppingBag className="h-8 w-8 group-hover:animate-slowbounce" />
-					</button>
-				</div>
+				<ProfileMenuButton toggleMenu={toggleShoppingBag}>
+					<ShoppingBag className="h-8 w-8 group-hover:animate-slowbounce" />
+				</ProfileMenuButton>
 
 				{openProfileMenu === true && <ProfileSection handleProfileClickAway={handleProfileClickAway} icons={icons} />}
 			</div>
