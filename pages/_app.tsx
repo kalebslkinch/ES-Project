@@ -2,6 +2,7 @@ import NavBar from '../components/layout/NavBar'
 import { SessionProvider } from 'next-auth/react'
 import '../styles/globals.css'
 import { AppType } from 'next/app'
+import { wrapper } from '../redux/store'
 
 const App: AppType = ({ Component, pageProps: { session, ...pageProps } }) => {
 	return (
@@ -12,4 +13,4 @@ const App: AppType = ({ Component, pageProps: { session, ...pageProps } }) => {
 	)
 }
 
-export default App
+export default wrapper.withRedux(App)
