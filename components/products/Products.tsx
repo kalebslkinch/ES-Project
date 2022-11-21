@@ -8,7 +8,7 @@ import Minus from '../svg/Minus'
 import Image from 'next/image'
 import { Col, Row } from '../EasyComponents/Flex'
 import { useDispatch, useSelector } from 'react-redux'
-import { handleRemove, selectCartState, setCart } from '../../redux/CartSlice'
+import { handleRemove, increaseQuantity, selectCartState, setCart } from '../../redux/CartSlice'
 
 const Products: FC<{ id: string; title: string; description: string; image: string; price: string }> = ({
 	id,
@@ -43,14 +43,7 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 
 	// Increase quantity amount
 	const handleIncrease = () => {
-		// Check if item is already in cart
-		// Update cart cookie with new quantity of current itemData
-		cookie.set(
-			'cart',
-			JSON.stringify(cart.map(item => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)))
-		)
-		// Update cart state with new quantity of current itemData
-		dispatch(setCart(cart.map(item => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item))))
+		dispatch(increaseQuantity({ id, cart }))
 	}
 
 	// Decrease quantity amount
