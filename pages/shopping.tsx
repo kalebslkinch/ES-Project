@@ -3,6 +3,8 @@ import Products from '../components/products/Products'
 import { FSCol } from '../components/EasyComponents/FScreen'
 import prisma from '../lib/prisma'
 import { NextPage } from 'next'
+import { useSelector } from 'react-redux'
+import { selectCartState } from '../redux/CartSlice'
 
 const Shopping: NextPage<{
 	products: {
@@ -13,6 +15,11 @@ const Shopping: NextPage<{
 		price: number | string
 	}[]
 }> = ({ products }) => {
+	const cart = useSelector(selectCartState)
+
+	// REMOVE!!!
+	console.log('Cart is', cart)
+
 	return (
 		<FSCol className="bg-[#f7f7f5]">
 			{/* Title */}
@@ -35,7 +42,7 @@ const Shopping: NextPage<{
 
 export default Shopping
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 	const products = await prisma.products.findMany()
 	return {
 		props: {

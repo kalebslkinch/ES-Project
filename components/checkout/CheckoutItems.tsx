@@ -4,7 +4,6 @@ import Plus from '../svg/Plus'
 import Minus from '../svg/Minus'
 import Link from 'next/link'
 import { FC } from 'react'
-import { StripeIssuingCardCvcDisplayElement } from '@stripe/stripe-js'
 const CheckoutItems: FC<{
 	id: string
 	title: string

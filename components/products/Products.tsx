@@ -7,6 +7,8 @@ import Plus from '../svg/Plus'
 import Minus from '../svg/Minus'
 import Image from 'next/image'
 import { Col, Row } from '../EasyComponents/Flex'
+import { useDispatch } from 'react-redux'
+import { handleRemove, setCart } from '../../redux/CartSlice'
 
 const Products: FC<{ id: string; title: string; description: string; image: string; price: string }> = ({
 	id,
@@ -15,6 +17,7 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 	image,
 	price
 }) => {
+	const dispatch = useDispatch()
 	const [alreadyDone, setAlreadyDone] = useState<boolean>(false)
 	const [quantity, setQuantity] = useState<number>(1)
 	const [counter, setCounter] = useState<number>(0)
@@ -39,14 +42,14 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 		const cart: string = 'cart'
 		if (cookie.get(cart) === undefined) {
 		} else {
-			const storedData = JSON.parse(cookie.get(cart))
+			const storedData = JSON.parse(cookie.get(cart) as any)
 
-			const titles: string[] = storedData.map(data => data.title)
+			const titles: string[] = storedData.map((data: any) => data.title)
 
 			if (titles.includes(title)) {
 				if (storedData[titles.indexOf(title)].quantity <= 0) {
 					setAlreadyDone(false)
-					handleRemove()
+					dispatch(handleRemove(title))
 					refreshData()
 				} else {
 					setAlreadyDone(true)
@@ -60,33 +63,6 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 		}
 	}, [counter])
 
-	// For removing from an Array
-	const arrayRemove = (arr: [], value: {}) => {
-		return arr.filter(function (ele) {
-			return ele != value
-		})
-	}
-
-	// Remove from Cart
-	const handleRemove = (): void => {
-		const cart = 'cart'
-
-		// Get items from the local storage
-		const getItems = JSON.parse(cookie.get(cart))
-
-		// Get the tiltes from the array
-		const titles = getItems.map(data => data.title)
-
-		// Index of the items
-		const index = titles.indexOf(title)
-		const newCart = arrayRemove(getItems, getItems[index])
-
-		// Add back to the local storage
-		cookie.set(cart, newCart)
-
-		refreshData()
-	}
-
 	// Decrease quantity amount
 	const handleDecrease = (): void => {
 		const cart = 'cart'
@@ -99,36 +75,33 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 			quantity
 		}
 
-		const stringGetItems = cookie.get(cart)
-		const getItems = JSON.parse(cookie.get(cart))
+		const stringGetItems: any = cookie.get(cart)
+		const getItems = JSON.parse(cookie.get(cart) as string)
 
-		const titles = getItems.map(data => data.title)
+		const titles = getItems.map((data: typeof itemData) => data.title)
 		if (stringGetItems[titles.indexOf(title)].quantity - 1 <= 0) {
-			handleRemove()
+			dispatch(handleRemove(title))
 			setAlreadyDone(false)
-			refreshData()
 		} else {
 			const newCart = stringGetItems.replace(
 				JSON.stringify(items),
 				JSON.stringify({ ...items, quantity: quantity - 1 })
 			)
 			cookie.set(cart, newCart)
-			refreshData()
+			dispatch(setCart(newCart))
 		}
-
-		refreshData()
 	}
 
 	// Empty Array
 	const handleCart = (): void => {
 		const cart = 'cart'
 		if (cookie.get(cart) === undefined) {
-			cookie.set(cart, [itemData])
+			cookie.set(cart, JSON.stringify([itemData]))
+			dispatch(setCart([itemData]))
 			setAlreadyDone(true)
-			refreshData()
 		} else {
-			const storedData = JSON.parse(cookie.get(cart))
-			const stringGetItems = cookie.get(cart)
+			const storedData = JSON.parse(cookie.get(cart) as string)
+			const stringGetItems: string = cookie.get(cart) as string
 			const items: typeof itemData = {
 				id,
 				title,
@@ -137,7 +110,7 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 				price,
 				quantity
 			}
-			const titles: string[] = storedData.map(data => data.title)
+			const titles: string[] = storedData.map((data: typeof itemData) => data.title)
 
 			if (titles.includes(title)) {
 				const newCart = stringGetItems.replace(
@@ -146,12 +119,12 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 				)
 				setCounter(counter + 1)
 				cookie.set(cart, JSON.parse(newCart))
-				refreshData()
+				dispatch(setCart(JSON.parse(newCart)))
 			} else {
 				const addData = [...storedData, itemData]
-				cookie.set(cart, addData)
+				cookie.set(cart, JSON.stringify(addData))
+				dispatch(setCart(addData))
 				setAlreadyDone(true)
-				refreshData()
 			}
 		}
 	}
