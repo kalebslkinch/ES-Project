@@ -19,12 +19,14 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 }) => {
 	const cart = useSelector(selectCartState)
 	const dispatch = useDispatch()
-	const checkItem = cart.find(item => item.id === id)
+	const [currentItem, setCurrentItem] = useState<any>(null)
+	useEffect(() => {
+		setCurrentItem(cart.find(item => item.id === id))
+	}, [cart])
 
 	const [alreadyDone, setAlreadyDone] = useState<boolean>(false)
-	const [quantity, setQuantity] = useState<number>(1)
 
-	console.log('Check Item', checkItem)
+	console.log('Check Item', currentItem)
 
 	// Refresh Router
 	const router = useRouter()
@@ -52,22 +54,29 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 	}
 
 	// Decrease quantity amount
-	const handleDecrease = (): void => {}
+	const handleDecrease = (): void => {
+		if ((currentItem as any).quantity === 1) {
+			dispatch(handleRemove(title))
+			setCurrentItem(null)
+			console.log('Remove Item')
+		} else {
+			cookie.set(
+				'cart',
+				JSON.stringify(cart.map(item => (item.id === id ? { ...item, quantity: item.quantity - 1 } : item)))
+			)
+			// Update cart state with new quantity of current itemData
+			dispatch(setCart(cart.map(item => (item.id === id ? { ...item, quantity: item.quantity - 1 } : item))))
+		}
+	}
 
 	// Empty Array
 	const handleCart = (): void => {
-		// If cart is greater than 0
 		if (cart.length <= 0) {
-			// Set cart cookie to currentItemData
 			cookie.set('cart', JSON.stringify([itemData]))
-			// Set cart state to currentItemData
 			dispatch(setCart([itemData]))
 		} else {
-			// If item is already in cart
-			if (!checkItem) {
-				// Set cart cookie to current cart + currentItemData
+			if (!currentItem) {
 				cookie.set('cart', JSON.stringify([...cart, itemData]))
-				// Set cart state to current cart + currentItemData
 				dispatch(setCart([...cart, itemData]))
 			}
 		}
@@ -107,7 +116,7 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 						)}
 
 						{/* Add to Bag Button */}
-						{!checkItem && (
+						{!currentItem && (
 							<button
 								onClick={handleCart}
 								className="rounded bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-900 focus:animate-addToBag focus:outline-none"
@@ -117,15 +126,15 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 						)}
 
 						{/* Quantity */}
-						{checkItem && (
+						{currentItem && (
 							<div
 								onClick={handleCart}
 								className={`flex flex-row  rounded bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-900 focus:animate-addToBag focus:outline-none`}
 							>
-								<span>{checkItem.quantity}</span>
+								<span>{currentItem.quantity}</span>
 
 								{/* Minus Button */}
-								<button disabled={quantity <= 0} onClick={handleDecrease} className="my-auto ml-3">
+								<button disabled={currentItem.quantity <= 0} onClick={handleDecrease} className="my-auto ml-3">
 									<Minus className="my-auto h-5 w-5" />
 								</button>
 
