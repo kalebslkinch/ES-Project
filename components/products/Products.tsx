@@ -7,8 +7,8 @@ import Plus from '../svg/Plus'
 import Minus from '../svg/Minus'
 import Image from 'next/image'
 import { Col, Row } from '../EasyComponents/Flex'
-import { useDispatch } from 'react-redux'
-import { handleRemove, setCart } from '../../redux/CartSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { handleRemove, selectCartState, setCart } from '../../redux/CartSlice'
 
 const Products: FC<{ id: string; title: string; description: string; image: string; price: string }> = ({
 	id,
@@ -17,16 +17,17 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 	image,
 	price
 }) => {
+	const cart = useSelector(selectCartState)
 	const dispatch = useDispatch()
+	const checkItem = cart.find(item => item.id === id)
+
 	const [alreadyDone, setAlreadyDone] = useState<boolean>(false)
 	const [quantity, setQuantity] = useState<number>(1)
-	const [counter, setCounter] = useState<number>(0)
+
+	console.log('Check Item', checkItem)
 
 	// Refresh Router
 	const router = useRouter()
-	const refreshData = (): void => {
-		router.replace(router.asPath, router.asPath, { scroll: false })
-	}
 
 	// Put item data into an object
 	const itemData: {
@@ -38,93 +39,36 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 		quantity: number
 	} = { id, title, description, image, price, quantity: 1 }
 
-	useEffect(() => {
-		const cart: string = 'cart'
-		if (cookie.get(cart) === undefined) {
-		} else {
-			const storedData = JSON.parse(cookie.get(cart) as any)
-
-			const titles: string[] = storedData.map((data: any) => data.title)
-
-			if (titles.includes(title)) {
-				if (storedData[titles.indexOf(title)].quantity <= 0) {
-					setAlreadyDone(false)
-					dispatch(handleRemove(title))
-					refreshData()
-				} else {
-					setAlreadyDone(true)
-					setQuantity(storedData[titles.indexOf(title)].quantity)
-					refreshData()
-				}
-			} else {
-				setAlreadyDone(false)
-				refreshData()
-			}
-		}
-	}, [counter])
+	// Increase quantity amount
+	const handleIncrease = () => {
+		// Check if item is already in cart
+		// Update cart cookie with new quantity of current itemData
+		cookie.set(
+			'cart',
+			JSON.stringify(cart.map(item => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)))
+		)
+		// Update cart state with new quantity of current itemData
+		dispatch(setCart(cart.map(item => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item))))
+	}
 
 	// Decrease quantity amount
-	const handleDecrease = (): void => {
-		const cart = 'cart'
-		const items: typeof itemData = {
-			id,
-			title,
-			description,
-			image,
-			price,
-			quantity
-		}
-
-		const stringGetItems: any = cookie.get(cart)
-		const getItems = JSON.parse(cookie.get(cart) as string)
-
-		const titles = getItems.map((data: typeof itemData) => data.title)
-		if (stringGetItems[titles.indexOf(title)].quantity - 1 <= 0) {
-			dispatch(handleRemove(title))
-			setAlreadyDone(false)
-		} else {
-			const newCart = stringGetItems.replace(
-				JSON.stringify(items),
-				JSON.stringify({ ...items, quantity: quantity - 1 })
-			)
-			cookie.set(cart, newCart)
-			dispatch(setCart(newCart))
-		}
-	}
+	const handleDecrease = (): void => {}
 
 	// Empty Array
 	const handleCart = (): void => {
-		const cart = 'cart'
-		if (cookie.get(cart) === undefined) {
-			cookie.set(cart, JSON.stringify([itemData]))
+		// If cart is greater than 0
+		if (cart.length <= 0) {
+			// Set cart cookie to currentItemData
+			cookie.set('cart', JSON.stringify([itemData]))
+			// Set cart state to currentItemData
 			dispatch(setCart([itemData]))
-			setAlreadyDone(true)
 		} else {
-			const storedData = JSON.parse(cookie.get(cart) as string)
-			const stringGetItems: string = cookie.get(cart) as string
-			const items: typeof itemData = {
-				id,
-				title,
-				description,
-				image,
-				price,
-				quantity
-			}
-			const titles: string[] = storedData.map((data: typeof itemData) => data.title)
-
-			if (titles.includes(title)) {
-				const newCart = stringGetItems.replace(
-					JSON.stringify(items),
-					JSON.stringify({ ...items, quantity: quantity + 1 })
-				)
-				setCounter(counter + 1)
-				cookie.set(cart, JSON.parse(newCart))
-				dispatch(setCart(JSON.parse(newCart)))
-			} else {
-				const addData = [...storedData, itemData]
-				cookie.set(cart, JSON.stringify(addData))
-				dispatch(setCart(addData))
-				setAlreadyDone(true)
+			// If item is already in cart
+			if (!checkItem) {
+				// Set cart cookie to current cart + currentItemData
+				cookie.set('cart', JSON.stringify([...cart, itemData]))
+				// Set cart state to current cart + currentItemData
+				dispatch(setCart([...cart, itemData]))
 			}
 		}
 	}
@@ -163,7 +107,7 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 						)}
 
 						{/* Add to Bag Button */}
-						{!alreadyDone && (
+						{!checkItem && (
 							<button
 								onClick={handleCart}
 								className="rounded bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-900 focus:animate-addToBag focus:outline-none"
@@ -173,12 +117,12 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 						)}
 
 						{/* Quantity */}
-						{alreadyDone && (
+						{checkItem && (
 							<div
 								onClick={handleCart}
 								className={`flex flex-row  rounded bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-900 focus:animate-addToBag focus:outline-none`}
 							>
-								<span>{quantity}</span>
+								<span>{checkItem.quantity}</span>
 
 								{/* Minus Button */}
 								<button disabled={quantity <= 0} onClick={handleDecrease} className="my-auto ml-3">
@@ -186,7 +130,7 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 								</button>
 
 								{/* Plus Button */}
-								<button onClick={handleCart} className="my-auto ml-1">
+								<button onClick={handleIncrease} className="my-auto ml-1">
 									<Plus className=" h-5 w-5" />
 								</button>
 							</div>
