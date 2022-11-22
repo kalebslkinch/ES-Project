@@ -1,9 +1,10 @@
-import { useRouter } from 'next/router'
-import cookie from 'js-cookie'
 import Plus from '../svg/Plus'
 import Minus from '../svg/Minus'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { handleRemove, selectCartState } from '../../redux/CartSlice'
+import { handleDecrease, handleIncrease } from '../../utils/constants/cart/cartFunctions'
 const CheckoutItems: FC<{
 	id: string
 	title: string
@@ -12,88 +13,15 @@ const CheckoutItems: FC<{
 	price: number | string
 	quantity: number
 }> = ({ id, title, description, image, price, quantity }) => {
-	// Router
-	const router = useRouter()
+	const cart = useSelector(selectCartState)
+	const dispatch = useDispatch()
 
-	// Refresh Router
-	const refreshData = (): void => {
-		router.replace(router.asPath)
-	}
-
-	// Put into object
-	const items: {
-		id: string
-		title: string
-		description: string
-		image: string
-		price: number | string
-		quantity: number
-	} = {
-		id,
-		title,
-		description,
-		image,
-		price,
-		quantity
-	}
+	const [currentItem, setCurrentItem] = useState<any>(null)
+	useEffect(() => {
+		setCurrentItem(cart.find(item => item.id === id))
+	}, [cart])
 
 	const newPrice: number = quantity * (price as number)
-
-	const cart: string = 'cart'
-
-	// Get items from the local storage
-	const stringGetItems = cookie.get(cart)
-	const getItems: {
-		id: string
-		title: string
-		description: string
-		image: string
-		price: number | string
-		quantity: number
-	}[] = JSON.parse(cookie.get(cart))
-
-	// Get the tiltes from the array
-	const titles: string[] = getItems.map(data => data.title)
-
-	// Index of the items
-	const index: number = titles.indexOf(title)
-
-	// For removing from an Array
-	function arrayRemove(arr: {}[], value: {}) {
-		return arr.filter(function (ele: {}) {
-			return ele != value
-		})
-	}
-
-	// Remove from Cart
-	const handleRemove = (): void => {
-		const newCart = arrayRemove(getItems, getItems[index])
-
-		// Add back to the local storage
-		cookie.set(cart, newCart)
-
-		refreshData()
-	}
-
-	// Increase quantity amount
-	const handleIncrease = (): void => {
-		const newCart = stringGetItems.replace(JSON.stringify(items), JSON.stringify({ ...items, quantity: quantity + 1 }))
-
-		cookie.set(cart, JSON.parse(newCart))
-		refreshData()
-	}
-
-	// Decrease quantity amount
-	const handleDecrease = (): void => {
-		const newCart = stringGetItems.replace(JSON.stringify(items), JSON.stringify({ ...items, quantity: quantity - 1 }))
-		cookie.set(cart, newCart)
-		refreshData()
-	}
-
-	// When quantity is less than 1 it removes it from the local strorage
-	if (quantity < 1) {
-		handleRemove()
-	}
 
 	return (
 		<>
@@ -148,12 +76,15 @@ const CheckoutItems: FC<{
 					{/* Quantity Toggle Buttons */}
 					<td className="animate-quantityfadein flex border-b border-gray-200 bg-white  px-5 py-8 ">
 						{/* Minus Button */}
-						<button className="pl-1 focus:outline-none" onClick={handleDecrease}>
+						<button
+							className="pl-1 focus:outline-none"
+							onClick={() => handleDecrease(dispatch, currentItem, setCurrentItem, title, id, cart)}
+						>
 							<Minus className="h-4 w-4" />
 						</button>
 
 						{/* Plus Button */}
-						<button className="pl-1 focus:outline-none" onClick={handleIncrease}>
+						<button className="pl-1 focus:outline-none" onClick={() => handleIncrease(dispatch, id, cart)}>
 							<Plus className="h-4 w-4" />
 						</button>
 					</td>
@@ -169,7 +100,7 @@ const CheckoutItems: FC<{
 					<td className="border-b border-gray-200  bg-white px-5 py-5 text-sm">
 						<span className="static   px-3 py-1 font-semibold leading-tight text-green-900">
 							<button
-								onClick={handleRemove}
+								onClick={() => dispatch(handleRemove(title))}
 								className="transform rounded-full bg-gray-300 px-2 py-2 text-red-800 transition delay-100 duration-300 hover:bg-gray-400 focus:outline-none"
 							>
 								Remove

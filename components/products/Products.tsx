@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import cookie from 'js-cookie'
 import TransitionProducts from '../transitions/TransitionProducts'
 import Plus from '../svg/Plus'
@@ -8,7 +7,7 @@ import Minus from '../svg/Minus'
 import Image from 'next/image'
 import { Col, Row } from '../EasyComponents/Flex'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectCartState, setCart } from '../../redux/CartSlice'
+import { selectCartState } from '../../redux/CartSlice'
 import { handleCart, handleDecrease, handleIncrease } from '../../utils/constants/cart/cartFunctions'
 
 const Products: FC<{ id: string; title: string; description: string; image: string; price: string }> = ({
