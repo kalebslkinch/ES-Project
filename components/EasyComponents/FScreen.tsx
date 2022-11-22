@@ -1,6 +1,6 @@
 import { FC, ReactChild, ReactNode } from 'react'
 
-export const FScreen: FC<{ children: any; className: string; bg: string }> = ({
+export const FScreen: FC<{ children: any; className: string; bg?: string }> = ({
 	children,
 	className = '',
 	bg = ''
@@ -12,7 +12,7 @@ export const FScreen: FC<{ children: any; className: string; bg: string }> = ({
 	)
 }
 
-export const FSRow: FC<{ children: any; className: string; bg: string }> = ({ children, className = '', bg = '' }) => {
+export const FSRow: FC<{ children: any; className: string; bg?: string }> = ({ children, className = '', bg = '' }) => {
 	return (
 		<div className={`flex w-screen flex-row ${className}`} style={{ backgroundImage: `url('${bg}')` }}>
 			{children}
