@@ -108,29 +108,29 @@ const MobileMenu: FC = () => {
 
 							{isAuthenticated ? (
 								<>
-									<div className="group flex">
-										{/* Profile Icon */}
-										<NiceUser className="h-8 w-8 group-hover:animate-bounce" />
+									{/* <div className="group flex"> */}
+									{/* Profile Icon */}
+									{/* <NiceUser className="h-8 w-8 group-hover:animate-bounce" /> */}
 
-										{/* Profile Button */}
-										<button onClick={() => handleClick('my-profile')}>
+									{/* Profile Button */}
+									{/* <button onClick={() => handleClick('my-profile')}>
 											<div className="-mtext-gray-300 -m block transform px-4 py-2 text-sm capitalize text-gray-700  transition-colors    duration-200">
 												My Account
 											</div>
 										</button>
-									</div>
+									</div> */}
 
-									<div className="group flex">
-										{/* Orders Icon */}
-										<Orders className="h-8 w-8 group-hover:animate-bounce" />
+									{/* <div className="group flex"> */}
+									{/* Orders Icon */}
+									{/* <Orders className="h-8 w-8 group-hover:animate-bounce" /> */}
 
-										{/* Orders Button */}
-										<button onClick={() => handleClick('orders')}>
+									{/* Orders Button */}
+									{/* <button onClick={() => handleClick('orders')}>
 											<div className="-mtext-gray-300 -m block transform px-4 py-2 text-sm capitalize text-gray-700  transition-colors    duration-200">
 												Orders
 											</div>
 										</button>
-									</div>
+									</div> */}
 
 									<div className="group flex">
 										{/* Logout Icon */}
