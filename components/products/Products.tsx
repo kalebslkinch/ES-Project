@@ -8,8 +8,8 @@ import Minus from '../svg/Minus'
 import Image from 'next/image'
 import { Col, Row } from '../EasyComponents/Flex'
 import { useDispatch, useSelector } from 'react-redux'
-import { decreaseQuantity, handleRemove, increaseQuantity, selectCartState, setCart } from '../../redux/CartSlice'
-import { handleDecrease, handleIncrease } from '../../utils/constants/cart/cartFunctions'
+import { selectCartState, setCart } from '../../redux/CartSlice'
+import { handleCart, handleDecrease, handleIncrease } from '../../utils/constants/cart/cartFunctions'
 
 const Products: FC<{ id: string; title: string; description: string; image: string; price: string }> = ({
 	id,
@@ -25,13 +25,6 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 		setCurrentItem(cart.find(item => item.id === id))
 	}, [cart])
 
-	const [alreadyDone, setAlreadyDone] = useState<boolean>(false)
-
-	console.log('Check Item', currentItem)
-
-	// Refresh Router
-	const router = useRouter()
-
 	// Put item data into an object
 	const itemData: {
 		id: string
@@ -41,19 +34,6 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 		price: string
 		quantity: number
 	} = { id, title, description, image, price, quantity: 1 }
-
-	// Empty Array
-	const handleCart = (): void => {
-		if (cart.length <= 0) {
-			cookie.set('cart', JSON.stringify([itemData]))
-			dispatch(setCart([itemData]))
-		} else {
-			if (!currentItem) {
-				cookie.set('cart', JSON.stringify([...cart, itemData]))
-				dispatch(setCart([...cart, itemData]))
-			}
-		}
-	}
 
 	return (
 		<>
@@ -91,7 +71,7 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 						{/* Add to Bag Button */}
 						{!currentItem && (
 							<button
-								onClick={handleCart}
+								onClick={() => handleCart(dispatch, cookie, cart, itemData, currentItem)}
 								className="rounded bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-900 focus:animate-addToBag focus:outline-none"
 							>
 								Add to bag
@@ -101,8 +81,8 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 						{/* Quantity */}
 						{currentItem && (
 							<div
-								onClick={handleCart}
-								className={`flex flex-row  rounded bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-900 focus:animate-addToBag focus:outline-none`}
+								onClick={() => handleCart(dispatch, cookie, cart, itemData, currentItem)}
+								className={`flex flex-row rounded bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-900 focus:animate-addToBag focus:outline-none`}
 							>
 								<span>{currentItem.quantity}</span>
 
@@ -117,7 +97,7 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 
 								{/* Plus Button */}
 								<button onClick={() => handleIncrease(dispatch, id, cart)} className="my-auto ml-1">
-									<Plus className=" h-5 w-5" />
+									<Plus className="h-5 w-5" />
 								</button>
 							</div>
 						)}
