@@ -23,17 +23,18 @@ const ProfileSection: FC<{
 				aria-labelledby="user-menu"
 			>
 				{isAuthenticated && (
-					<>
-						{/* My Profile Button */}
-						<ProfileSectionButton title="My profile" link="/my-profile">
-							<User className="h-6 w-6 group-hover:animate-slowbounce" />
-						</ProfileSectionButton>
+					// <>
+					// 	{/* My Profile Button */}
+					// 	<ProfileSectionButton title="My profile" link="/my-profile">
+					// 		<User className="h-6 w-6 group-hover:animate-slowbounce" />
+					// 	</ProfileSectionButton>
 
-						{/* Orders Button */}
-						<ProfileSectionButton title="Orders" link="/orders">
-							<Heart className="h-6 w-6 group-hover:animate-slowbounce" />
-						</ProfileSectionButton>
-					</>
+					// 	{/* Orders Button */}
+					// 	<ProfileSectionButton title="Orders" link="/orders">
+					// 		<Heart className="h-6 w-6 group-hover:animate-slowbounce" />
+					// 	</ProfileSectionButton>
+					// </>
+					<></>
 				)}
 				<>
 					{/* Orders Button */}

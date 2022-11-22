@@ -15,6 +15,10 @@ import { useSession } from 'next-auth/react'
 const MobileMenu: FC = () => {
 	// Temporary User
 	const isAuthenticated = useSession().status === 'authenticated'
+	const session = useSession().data
+
+	// REMOVE!!
+	console.log('Session is ', session)
 
 	const router = useRouter()
 
