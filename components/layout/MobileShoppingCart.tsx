@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { FC } from 'react'
 import ShoppingCart from '../shoppingcart/ShoppingCart'
-const MobileShoppingCart = ({ toggleShoppingBag }) => {
+const MobileShoppingCart: FC<{ toggleShoppingBag: () => void }> = ({ toggleShoppingBag }) => {
 	return (
 		<>
 			<div className="absolute top-12 right-[258px]">
