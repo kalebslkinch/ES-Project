@@ -1,5 +1,5 @@
 import HowToTest from '../HowToTest'
-import { useState, useEffect, FC } from 'react'
+import { useState, useEffect, FC, ChangeEvent, ChangeEventHandler } from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import cookie from 'js-cookie'
 import CryptoJS from 'crypto-js'
@@ -64,12 +64,12 @@ const CheckoutForm: FC = () => {
 		// Create PaymentIntent as soon as the page loads
 
 		// Decrypt
-		const getData = JSON.parse(cookie.get('orderDetails')).totalAmount
+		const getData = JSON.parse(cookie.get('orderDetails') as string).totalAmount
 		let bytesTotalAmount = CryptoJS.AES.decrypt(getData, `${process.env.SECRET_KEY}`)
 		// Decrypt
 		let totalAmount = JSON.parse(bytesTotalAmount.toString(CryptoJS.enc.Utf8))
 
-		const encryptedData = JSON.parse(cookie.get('orderDetails')).encryptedData
+		const encryptedData = JSON.parse(cookie.get('orderDetails') as string).encryptedData
 		let bytesencryptedData = CryptoJS.AES.decrypt(encryptedData, `${process.env.SECRET_KEY}`)
 		// Decrypt
 		let decryptedencryptedData = JSON.parse(bytesencryptedData.toString(CryptoJS.enc.Utf8))
@@ -122,20 +122,20 @@ const CheckoutForm: FC = () => {
 		router.replace('/orderCompleted')
 	}
 
-	const handleChange = async (e): Promise<any> => {
+	const handleChange = async (e: any): Promise<any> => {
 		// Listen for changes in the CardElement
 		// and display any errors as the customer types their card details
 		setDisabled(e.empty)
 		setError(e.error ? e.error.message : '')
 	}
 
-	const handleSubmit = async (e): Promise<any> => {
+	const handleSubmit = async (e: any): Promise<any> => {
 		e.preventDefault()
 		setProcessing(true)
 
-		const payload = await stripe.confirmCardPayment(clientSecret, {
+		const payload = await (stripe as any).confirmCardPayment(clientSecret, {
 			payment_method: {
-				card: elements.getElement(CardElement)
+				card: (elements as any).getElement(CardElement)
 			}
 		})
 
