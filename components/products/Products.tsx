@@ -8,7 +8,8 @@ import Minus from '../svg/Minus'
 import Image from 'next/image'
 import { Col, Row } from '../EasyComponents/Flex'
 import { useDispatch, useSelector } from 'react-redux'
-import { handleRemove, increaseQuantity, selectCartState, setCart } from '../../redux/CartSlice'
+import { decreaseQuantity, handleRemove, increaseQuantity, selectCartState, setCart } from '../../redux/CartSlice'
+import { handleDecrease, handleIncrease } from '../../utils/constants/cart/cartFunctions'
 
 const Products: FC<{ id: string; title: string; description: string; image: string; price: string }> = ({
 	id,
@@ -40,27 +41,6 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 		price: string
 		quantity: number
 	} = { id, title, description, image, price, quantity: 1 }
-
-	// Increase quantity amount
-	const handleIncrease = () => {
-		dispatch(increaseQuantity({ id, cart }))
-	}
-
-	// Decrease quantity amount
-	const handleDecrease = (): void => {
-		if ((currentItem as any).quantity === 1) {
-			dispatch(handleRemove(title))
-			setCurrentItem(null)
-			console.log('Remove Item')
-		} else {
-			cookie.set(
-				'cart',
-				JSON.stringify(cart.map(item => (item.id === id ? { ...item, quantity: item.quantity - 1 } : item)))
-			)
-			// Update cart state with new quantity of current itemData
-			dispatch(setCart(cart.map(item => (item.id === id ? { ...item, quantity: item.quantity - 1 } : item))))
-		}
-	}
 
 	// Empty Array
 	const handleCart = (): void => {
@@ -127,12 +107,16 @@ const Products: FC<{ id: string; title: string; description: string; image: stri
 								<span>{currentItem.quantity}</span>
 
 								{/* Minus Button */}
-								<button disabled={currentItem.quantity <= 0} onClick={handleDecrease} className="my-auto ml-3">
+								<button
+									disabled={currentItem.quantity <= 0}
+									onClick={() => handleDecrease(dispatch, currentItem, setCurrentItem, title, id, cart)}
+									className="my-auto ml-3"
+								>
 									<Minus className="my-auto h-5 w-5" />
 								</button>
 
 								{/* Plus Button */}
-								<button onClick={handleIncrease} className="my-auto ml-1">
+								<button onClick={() => handleIncrease(dispatch, id, cart)} className="my-auto ml-1">
 									<Plus className=" h-5 w-5" />
 								</button>
 							</div>

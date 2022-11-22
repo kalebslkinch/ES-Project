@@ -58,6 +58,24 @@ export const cartSlice = createSlice({
 				item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item
 			)
 		},
+		decreaseQuantity(state, action) {
+			// Check if item is already in cart
+			// Update cart cookie with new quantity of current itemData
+			cookie.set(
+				'cart',
+				JSON.stringify(
+					action.payload.cart.map((item: any) =>
+						item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item
+					)
+				)
+			)
+			// Update cart state with new quantity of current itemData
+
+			state.cartState = action.payload.cart.map((item: any) =>
+				item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item
+			)
+		},
+
 		handleRemove(state, action) {
 			const cart = 'cart'
 
@@ -78,7 +96,7 @@ export const cartSlice = createSlice({
 	}
 })
 
-export const { setCart, handleRemove, increaseQuantity } = cartSlice.actions
+export const { setCart, handleRemove, increaseQuantity, decreaseQuantity } = cartSlice.actions
 
 export const selectCartState = (state: AppState) => state.cart.cartState
 
