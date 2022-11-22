@@ -18,16 +18,7 @@ export interface CartState {
 const initialState: CartState =
 	cookie.get('cart') === undefined
 		? {
-				cartState: [
-					{
-						id: '',
-						title: '',
-						description: '',
-						image: '',
-						price: 0,
-						quantity: 0
-					}
-				]
+				cartState: []
 		  }
 		: {
 				cartState: JSON.parse(cookie.get('cart') as string)
@@ -91,7 +82,7 @@ export const cartSlice = createSlice({
 
 			// Add back to the local storage
 			cookie.set(cart, newCart)
-			state = newCart
+			state.cartState = newCart
 		}
 	}
 })

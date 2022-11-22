@@ -65,7 +65,7 @@ const ShoppingCartItem: FC<{
 			<div className="w-18 flex animate-shoppingBagfadein flex-col items-end font-medium">
 				<div className="mb-6 h-4 w-4  cursor-pointer rounded-full text-red-700">
 					{/* Trash Button */}
-					<button className="focus:outline-none" onClick={() => handleRemove(title)}>
+					<button className="focus:outline-none" onClick={() => dispatch(handleRemove(title))}>
 						<Trash className="transform transition delay-100 duration-300 hover:fill-red-700 " />
 					</button>
 				</div>

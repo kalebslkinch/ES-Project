@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux'
 import { selectCartState } from '../../redux/CartSlice'
 
 const ShoppingCart: FC<{ toggleShoppingBag: () => void }> = ({ toggleShoppingBag }) => {
-	const cartItems = useSelector(selectCartState)
+	const cart = useSelector(selectCartState)
 
-	if (cartItems[0].title === '' && cartItems[0].description === '') {
+	if (cart.length === 0) {
 		return <></>
 	}
-	const totalAmount = cartItems.map(data => data.quantity * data.price).reduce((a, b) => a + b)
+	const totalAmount = cart.map(data => data.quantity * data.price).reduce((a, b) => a + b)
 
 	return (
 		<div className="fixed z-40">
@@ -22,7 +22,7 @@ const ShoppingCart: FC<{ toggleShoppingBag: () => void }> = ({ toggleShoppingBag
 						<div className="absolute w-full rounded-b border-t-0 ">
 							<div className="w-64 space-y-1 shadow-xl">
 								{/* Map Shopping Cart Items */}
-								{cartItems.map(data => (
+								{cart.map(data => (
 									<Row className="flex animate-fadein cursor-pointer bg-white bg-gradient-to-r p-2 hover:from-pink-400 hover:via-green-300 hover:to-blue-400">
 										{/* Shopping Cart Items */}
 										<ShoppingCartItems
