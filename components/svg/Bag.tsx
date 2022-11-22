@@ -1,4 +1,6 @@
-export default function Bag({ className: string }) {
+import { FC } from 'react'
+
+const Bag: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			{' '}
