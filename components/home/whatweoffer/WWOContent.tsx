@@ -14,7 +14,7 @@ const WWOContent: FC<{
 	inView: boolean
 }> = ({ testimonials, inView }) => {
 	return (
-		<FSCol>
+		<FSCol className="">
 			<Col className="mx-auto w-3/4 text-center">
 				<h1 className="mb-1 h-16 overflow-hidden overflow-ellipsis text-2xl  font-bold  capitalize text-gray-800 sm:h-8  md:text-3xl lg:h-16 lg:text-4xl">
 					Hear from a few of our happy customers
