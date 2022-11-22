@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { ReactChild } from 'react'
-const ProfileSectionButton = ({ children, title, link }: { children: ReactChild; title: string; link: string }) => {
+const ProfileSectionButton = ({ children, title, link }: { children: any title: string; link: string }) => {
 	return (
 		<div className="group pl-4 flex">
 			{/* Order Icon */}

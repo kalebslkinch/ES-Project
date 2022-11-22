@@ -1,6 +1,6 @@
-import { FC, ReactChild } from 'react'
+import { FC, ReactChild, ReactNode } from 'react'
 
-export const FScreen: FC<{ children: ReactChild; className: string; bg: string }> = ({
+export const FScreen: FC<{ children: any; className: string; bg: string }> = ({
 	children,
 	className = '',
 	bg = ''
@@ -12,11 +12,7 @@ export const FScreen: FC<{ children: ReactChild; className: string; bg: string }
 	)
 }
 
-export const FSRow: FC<{ children: ReactChild; className: string; bg: string }> = ({
-	children,
-	className = '',
-	bg = ''
-}) => {
+export const FSRow: FC<{ children: any; className: string; bg: string }> = ({ children, className = '', bg = '' }) => {
 	return (
 		<div className={`flex w-screen flex-row ${className}`} style={{ backgroundImage: `url('${bg}')` }}>
 			{children}
@@ -24,11 +20,7 @@ export const FSRow: FC<{ children: ReactChild; className: string; bg: string }> 
 	)
 }
 
-export const FSCol: FC<{ children: ReactChild; className: string; bg: string }> = ({
-	children,
-	className = '',
-	bg = ''
-}) => {
+export const FSCol: FC<{ children: any; className: string; bg?: string }> = ({ children, className = '', bg = '' }) => {
 	return (
 		<div className={`flex w-screen flex-col ${className}`} style={{ backgroundImage: `url('${bg}')` }}>
 			{children}

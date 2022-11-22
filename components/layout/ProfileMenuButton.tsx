@@ -1,5 +1,5 @@
 import React, { FC, ReactChild } from 'react'
-const ProfileMenuButton: FC<{ children: ReactChild; toggleMenu: () => void }> = ({ children, toggleMenu }) => {
+const ProfileMenuButton: FC<{ children: any toggleMenu: () => void }> = ({ children, toggleMenu }) => {
 	return (
 		<div className="group">
 			{/* Menu Button */}

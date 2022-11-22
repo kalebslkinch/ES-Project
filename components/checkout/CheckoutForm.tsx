@@ -1,5 +1,5 @@
 import HowToTest from '../HowToTest'
-import { useState, useEffect, FC, ChangeEvent, ChangeEventHandler } from 'react'
+import { useState, useEffect, FC } from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import cookie from 'js-cookie'
 import CryptoJS from 'crypto-js'
