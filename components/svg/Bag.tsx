@@ -3,7 +3,6 @@ import { FC } from 'react'
 const Bag: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
-			{' '}
 			<svg
 				className={className}
 				version="1.1"
@@ -89,3 +88,4 @@ const Bag: FC<{ className: string }> = ({ className }) => {
 		</>
 	)
 }
+export default Bag
