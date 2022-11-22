@@ -1,6 +1,6 @@
-import { FC, ReactChildren } from 'react'
+import { FC, ReactChild } from 'react'
 
-export const FScreen: FC<{ children: ReactChildren; className: string; bg: string }> = ({
+export const FScreen: FC<{ children: ReactChild; className: string; bg: string }> = ({
 	children,
 	className = '',
 	bg = ''
@@ -12,7 +12,7 @@ export const FScreen: FC<{ children: ReactChildren; className: string; bg: strin
 	)
 }
 
-export const FSRow: FC<{ children: ReactChildren; className: string; bg: string }> = ({
+export const FSRow: FC<{ children: ReactChild; className: string; bg: string }> = ({
 	children,
 	className = '',
 	bg = ''
@@ -24,7 +24,7 @@ export const FSRow: FC<{ children: ReactChildren; className: string; bg: string 
 	)
 }
 
-export const FSCol: FC<{ children: ReactChildren; className: string; bg: string }> = ({
+export const FSCol: FC<{ children: ReactChild; className: string; bg: string }> = ({
 	children,
 	className = '',
 	bg = ''
