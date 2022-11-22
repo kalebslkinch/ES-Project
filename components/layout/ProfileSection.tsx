@@ -1,16 +1,13 @@
 import ProfileSectionButton from './ProfileSectionButton'
-import Link from 'next/link'
 import ClickAwayListener from 'react-click-away-listener'
-import User from '../svg/User'
-import Heart from '../svg/Heart'
 import Logout from '../svg/Logout'
 import Login from '../svg/Login'
-import { FC, ReactChild } from 'react'
+import { FC } from 'react'
 import { useSession } from 'next-auth/react'
 
 const ProfileSection: FC<{
 	handleProfileClickAway: () => void
-	icons: ReactChild
+	icons: string
 }> = ({ handleProfileClickAway, icons }) => {
 	const isAuthenticated = useSession().status === 'authenticated'
 
