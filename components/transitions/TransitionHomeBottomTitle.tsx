@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react'
 import { FC } from 'react'
 
-const TransitionHomeBottomTitle: FC<{ children: any; inView: any }> = ({ children, inView }) => {
+const TransitionHomeBottomTitle: FC<{ children: any; inView: boolean }> = ({ children, inView }) => {
 	return (
 		<Transition
 			show={inView}

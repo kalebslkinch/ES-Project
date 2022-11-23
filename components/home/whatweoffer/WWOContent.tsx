@@ -15,38 +15,40 @@ const WWOContent: FC<{
 }> = ({ testimonials, inView }) => {
 	return (
 		<FSCol className="">
-			<Col className="mx-auto w-3/4 text-center">
-				<h1 className="mb-1 h-16 overflow-hidden overflow-ellipsis text-2xl  font-bold  capitalize text-gray-800 sm:h-8  md:text-3xl lg:h-16 lg:text-4xl">
-					Hear from a few of our happy customers
-				</h1>
+			<>
+				<Col className="mx-auto w-3/4 text-center">
+					<h1 className="mb-1 h-16 overflow-hidden overflow-ellipsis text-2xl  font-bold  capitalize text-gray-800 sm:h-8  md:text-3xl lg:h-16 lg:text-4xl">
+						Hear from a few of our happy customers
+					</h1>
 
-				<div className="mb-10 text-center">
-					<span className="ml-1 inline-block h-1 w-0 rounded-full bg-indigo-800 sm:w-3"></span>
+					<div className="mb-10 text-center">
+						<span className="ml-1 inline-block h-1 w-0 rounded-full bg-indigo-800 sm:w-3"></span>
 
-					<span className="ml-1 inline-block h-1 w-3 rounded-full  bg-indigo-800"></span>
-					<span className="ml-1 inline-block h-1 w-1 rounded-full  bg-indigo-800"></span>
-					<span className="ml-1 inline-block h-1 w-1 rounded-full  bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-3 rounded-full  bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-1 rounded-full  bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-1 rounded-full  bg-indigo-800"></span>
 
-					<span className="ml-1 inline-block h-1 w-1 rounded-full bg-indigo-800"></span>
-					<span className="ml-1 inline-block h-1 w-3 rounded-full bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-1 rounded-full bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-3 rounded-full bg-indigo-800"></span>
 
-					<span className="ml-1 inline-block h-1 w-40 rounded-full bg-indigo-800"></span>
-					<span className="ml-1 inline-block h-1 w-3 rounded-full bg-indigo-800"></span>
-					<span className="ml-1 inline-block h-1 w-1 rounded-full bg-indigo-800"></span>
-					<span className="ml-1 inline-block h-1 w-1 rounded-full bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-40 rounded-full bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-3 rounded-full bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-1 rounded-full bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-1 rounded-full bg-indigo-800"></span>
 
-					<span className="ml-1 inline-block h-1 w-1 rounded-full bg-indigo-800"></span>
-					<span className="ml-1 inline-block h-1 w-3 rounded-full bg-indigo-800"></span>
-					<span className="ml-1 inline-block h-1 w-0 rounded-full bg-indigo-800 sm:w-3"></span>
-				</div>
-			</Col>
-			<TransitionInstaCard inView={inView}>
-				<div className="grid w-screen grid-cols-1 overflow-hidden px-6 sm:gap-2 sm:px-10 md:grid-cols-2 lg:mx-auto  lg:grid-cols-3 lg:gap-3  xl:max-w-[1200px] ">
-					{testimonials.map(testimonial => (
-						<InstagramCard image={testimonial.image} name={testimonial.name} message={testimonial.message} />
-					))}
-				</div>
-			</TransitionInstaCard>
+						<span className="ml-1 inline-block h-1 w-1 rounded-full bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-3 rounded-full bg-indigo-800"></span>
+						<span className="ml-1 inline-block h-1 w-0 rounded-full bg-indigo-800 sm:w-3"></span>
+					</div>
+				</Col>
+				<TransitionInstaCard inView={inView}>
+					<div className="grid w-screen grid-cols-1 overflow-hidden px-6 sm:gap-2 sm:px-10 md:grid-cols-2 lg:mx-auto  lg:grid-cols-3 lg:gap-3  xl:max-w-[1200px] ">
+						{testimonials.map(testimonial => (
+							<InstagramCard image={testimonial.image} name={testimonial.name} message={testimonial.message} />
+						))}
+					</div>
+				</TransitionInstaCard>
+			</>
 		</FSCol>
 	)
 }

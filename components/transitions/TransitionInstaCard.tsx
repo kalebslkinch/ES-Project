@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react'
 import { FC } from 'react'
 
-const TransitionInstaCard: FC<{ children: any; inView: any }> = ({ children, inView }) => {
+const TransitionInstaCard: FC<{ children: any; inView: boolean }> = ({ children, inView }) => {
 	return (
 		<Transition
 			show={inView}
