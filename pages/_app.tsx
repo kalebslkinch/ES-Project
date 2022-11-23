@@ -1,19 +1,16 @@
-import NavBar from '../components/layout/NavBar';
-import '../styles/globals.css';
-import { ApolloProvider } from '@apollo/client';
-import client from '../lib/apolloClient';
-import { useUser } from '../lib/firebase/useUser';
+import NavBar from '../components/layout/NavBar'
+import { SessionProvider } from 'next-auth/react'
+import '../styles/globals.css'
+import { wrapper } from '../redux/store'
+import { NextPage } from 'next'
 
-const MyApp = ({ Component, pageProps }) => {
-  const { user, logout } = useUser();
-  return (
-    <>
-      <ApolloProvider client={client}>
-        <NavBar />
-        <Component {...pageProps} user={user} logout={logout} />
-      </ApolloProvider>
-    </>
-  );
-};
+const App: NextPage<any> = ({ Component, pageProps: { session, ...pageProps } }) => {
+	return (
+		<SessionProvider session={session}>
+			<NavBar />
+			<Component {...pageProps} />
+		</SessionProvider>
+	)
+}
 
-export default MyApp;
+export default wrapper.withRedux(App)

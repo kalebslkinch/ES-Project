@@ -1,27 +1,43 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import Stripe from "stripe";
-// This is your real test secret API key.
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  // https://github.com/stripe/stripe-node#configuration
-  apiVersion: "2020-08-27"
-});
+import { NextApiRequest, NextApiResponse } from 'next'
+import prisma from '../../../lib/prisma'
 
-const calculateOrderAmount = (amount) => {
-  return parseInt((amount * 100).toString(), 10);
-};
+// This is your test secret API key.
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { amount } = req.body;
-  // Create a PaymentIntent with the order amount and currency
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount(amount),
-    currency: "gbp"
-  });
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+	const { body } = req
 
-  res.send({
-    clientSecret: paymentIntent.client_secret
-  });
+	const productData = await prisma.products.findMany()
+
+	const products = JSON.parse(body.products)
+
+	let filteredWithCorrectQuantity: any[] = []
+	let actualAmounts: number[] = []
+
+	const IDs = products.map((product: { id: string }) => product.id)
+	const filteredProducts = productData.filter((product: { id: string }) => IDs.includes(product.id))
+
+	for (let i = 0; i < filteredProducts.length; i++) {
+		filteredWithCorrectQuantity.push({
+			...filteredProducts[i],
+			quantity: products[i].quantity
+		})
+	}
+
+	filteredWithCorrectQuantity.forEach((each: any) => {
+		actualAmounts.push(each.price * each.quantity)
+	})
+
+	// Add all the amount in actualAmounts array
+	const totalAmount = actualAmounts.reduce((a: number, b: number) => a + b, 0)
+
+	// Create a PaymentIntent with the order amount and currency
+	const paymentIntent = await stripe.paymentIntents.create({
+		amount: totalAmount * 100,
+		currency: 'gbp'
+	})
+
+	res.send({
+		clientSecret: paymentIntent.client_secret
+	})
 }
