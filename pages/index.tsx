@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
 import cookie from 'js-cookie'
 import { useInView } from 'react-intersection-observer'
-import dynamic from 'next/dynamic'
 import Header from './../components/home/Header'
 import prisma from '../lib/prisma'
-
-const WWOContent = dynamic(() => import('../components/home/whatweoffer/WWOContent'))
+import WWOContent from '../components/home/whatweoffer/WWOContent'
 
 const Index = ({
 	testimonials
