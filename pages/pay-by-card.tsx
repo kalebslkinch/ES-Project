@@ -6,7 +6,7 @@ const promise = loadStripe(process.env.NEXT_STRIPE_KEY as string)
 
 const PayByCard = () => {
 	return (
-		<div className="max-w-screen w-full flex-col justify-center ">
+		<div className="max-w-screen w-full flex-col justify-center">
 			<div className="py-5">
 				<div className="App">
 					<Elements stripe={promise}>
