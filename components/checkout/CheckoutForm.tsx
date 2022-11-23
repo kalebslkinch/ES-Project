@@ -8,7 +8,6 @@ import { useMutation } from '@apollo/client'
 import { ADD_ORDER } from '../../graphql/mutations/addCustomersOrders'
 import { date, time } from '../../lib/dateandtime'
 import Loading from '../Loading'
-import { CheckoutForm } from '../../utils/types/checkoutform'
 
 const CheckoutForm: FC = () => {
 	const [addCustomersOrders, { data: customerData }] = useMutation(ADD_ORDER)
