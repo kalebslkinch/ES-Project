@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { FC, MouseEventHandler, useState } from 'react'
+import { MouseEventHandler, useState } from 'react'
 import { Col, Row } from '../EasyComponents/Flex'
 import Cross from '../svg/Cross'
 
-const ContactModal: FC<{ open: MouseEventHandler<any> }> = ({ open }) => {
+const ContactModal = ({ open }: { open: MouseEventHandler<any> }) => {
 	// States
 	const [formData, setFormData] = useState<{
 		name: string
