@@ -1,4 +1,6 @@
-export default function Down({ className: string }) {
+import { FC } from 'react'
+
+const Down: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			<svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -7,3 +9,4 @@ export default function Down({ className: string }) {
 		</>
 	)
 }
+export default Down

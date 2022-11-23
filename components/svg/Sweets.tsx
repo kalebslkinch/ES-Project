@@ -1,4 +1,6 @@
-export default function Sweets({ className: string }) {
+import { FC } from 'react'
+
+const Sweets: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			<svg
@@ -699,3 +701,4 @@ export default function Sweets({ className: string }) {
 		</>
 	)
 }
+export default Sweets

@@ -1,4 +1,6 @@
-export default function Truck({ className: string }) {
+import { FC } from 'react'
+
+const Truck: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			<svg
@@ -19,3 +21,4 @@ export default function Truck({ className: string }) {
 		</>
 	)
 }
+export default Truck

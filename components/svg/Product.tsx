@@ -1,4 +1,6 @@
-export default function Product({ className: string }) {
+import { FC } from 'react'
+
+const Product: FC<{ className: string }> = ({ className }) => {
 	return (
 		<svg x="0" y="0" className={className} viewBox="0, 0, 744, 1167">
 			<defs>
@@ -193,3 +195,5 @@ export default function Product({ className: string }) {
 		</svg>
 	)
 }
+
+export default Product

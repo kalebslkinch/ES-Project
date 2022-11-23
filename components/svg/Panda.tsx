@@ -1,4 +1,6 @@
-export default function Panda({ className: string }) {
+import { FC } from 'react'
+
+const Panda: FC<{ className: string }> = ({ className }) => {
 	return (
 		<svg version="1.1" x="0" y="0" className={className} viewBox="0, 0, 580, 500">
 			<g id="Layer_1">
@@ -115,3 +117,4 @@ export default function Panda({ className: string }) {
 		</svg>
 	)
 }
+export default Panda

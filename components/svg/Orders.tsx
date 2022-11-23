@@ -1,4 +1,6 @@
-export default function Orders({ className: string }) {
+import { FC } from 'react'
+
+const Orders: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			<svg
@@ -120,3 +122,4 @@ export default function Orders({ className: string }) {
 		</>
 	)
 }
+export default Orders

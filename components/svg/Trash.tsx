@@ -1,4 +1,6 @@
-export default function Trash({ className: string }) {
+import { FC } from 'react'
+
+const Trash: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			<svg
@@ -21,3 +23,4 @@ export default function Trash({ className: string }) {
 		</>
 	)
 }
+export default Trash

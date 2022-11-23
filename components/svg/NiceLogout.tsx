@@ -1,4 +1,6 @@
-export default function NiceLogout({ className: string }) {
+import { FC } from 'react'
+
+const NiceLogout: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			<svg
@@ -61,3 +63,4 @@ export default function NiceLogout({ className: string }) {
 		</>
 	)
 }
+export default NiceLogout

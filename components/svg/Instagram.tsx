@@ -1,4 +1,6 @@
-export default function Instagram({ className: string }) {
+import { FC } from 'react'
+
+const Instagram: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			<svg className={className} viewBox="0 0 256 256" version="1.1" preserveAspectRatio="xMidYMid">
@@ -12,3 +14,4 @@ export default function Instagram({ className: string }) {
 		</>
 	)
 }
+export default Instagram

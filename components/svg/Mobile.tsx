@@ -1,4 +1,6 @@
-export default function Mobile({ className: string }) {
+import { FC } from 'react'
+
+const Mobile: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			<svg
@@ -72,3 +74,4 @@ export default function Mobile({ className: string }) {
 		</>
 	)
 }
+export default Mobile

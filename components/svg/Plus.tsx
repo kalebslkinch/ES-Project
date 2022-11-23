@@ -1,4 +1,6 @@
-export default function Plus({ className: string }) {
+import { FC } from 'react'
+
+const Plus: FC<{ className: string }> = ({ className }) => {
 	return (
 		<>
 			<svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="#4A5568">
@@ -7,3 +9,4 @@ export default function Plus({ className: string }) {
 		</>
 	)
 }
+export default Plus
