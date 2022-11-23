@@ -6,8 +6,7 @@ import { useState } from 'react'
 import { Col, Row } from '../components/EasyComponents/Flex'
 import Check from '../components/svg/Check'
 import { NextPage } from 'next'
-
-const DynamicContactModal = dynamic(() => import('../components/modals/ContactModal'))
+import ContactModal from '../components/modals/ContactModal'
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -134,7 +133,7 @@ const SnackBox: NextPage = () => {
 				</div>
 			</div>
 
-			{openModal && <DynamicContactModal open={handleModal} />}
+			{openModal && <ContactModal open={handleModal} />}
 		</>
 	)
 }
