@@ -1,4 +1,4 @@
-import CheckoutForm from '../components/checkout/CheckoutForm'
+// import CheckoutForm from '../components/checkout/CheckoutForm'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
@@ -9,9 +9,7 @@ const PayByCard = () => {
 		<div className="max-w-screen w-full flex-col justify-center">
 			<div className="py-5">
 				<div className="App">
-					<Elements stripe={promise}>
-						<CheckoutForm />
-					</Elements>
+					<Elements stripe={promise}>{/* <CheckoutForm /> */}</Elements>
 				</div>
 			</div>
 		</div>
