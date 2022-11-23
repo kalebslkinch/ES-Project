@@ -2,9 +2,11 @@ import { Col } from '../../EasyComponents/Flex'
 import { FSCol } from '../../EasyComponents/FScreen'
 import InstagramCard from '../InstagramCard'
 import TransitionInstaCard from '../../transitions/TransitionInstaCard'
-import { FC } from 'react'
 
-const WWOContent: FC<{
+const WWOContent = ({
+	testimonials,
+	inView
+}: {
 	testimonials: {
 		id: string
 		name: string
@@ -12,7 +14,7 @@ const WWOContent: FC<{
 		message: string
 	}[]
 	inView: boolean
-}> = ({ testimonials, inView }) => {
+}) => {
 	return (
 		<FSCol className="">
 			<>
